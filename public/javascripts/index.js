@@ -75,15 +75,14 @@ $(document).ready(function () {
     try {
       var obj = JSON.parse(message.data);
 			console.log(obj);
-			console.log(obj.data);
-			var objb = JSON.parse(obj.data);
-			console.log(objb);
-			console.log(objb.temperature);
-      if(!obj.time || !obj.temperature) {
+			var objS = JSON.parse(obj.data);
+			console.log(objS);
+      if(!obj.time || !objS.temperature) {
+				console.log("Items missing...")
         return;
       }
       timeData.push(obj.time);
-      temperatureData.push(obj.temperature);
+      temperatureData.push(objS.temperature);
       // only keep no more than 50 points in the line chart
       const maxLen = 50;
       var len = timeData.length;
@@ -92,8 +91,8 @@ $(document).ready(function () {
         temperatureData.shift();
       }
 
-      if (obj.humidity) {
-        humidityData.push(obj.humidity);
+      if (objS.humidity) {
+        humidityData.push(objS.humidity);
       }
       if (humidityData.length > maxLen) {
         humidityData.shift();
